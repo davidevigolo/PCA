@@ -1,0 +1,1 @@
+Per avviare: `python3 main.py`
