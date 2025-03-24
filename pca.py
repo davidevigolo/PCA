@@ -1,3 +1,5 @@
+# Realizzato seguendo https://builtin.com/data-science/step-step-explanation-principal-component-analysis
+
 import numpy as np
 
 # Data una matrice costruisce la matrice di covarianza

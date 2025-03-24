@@ -1,5 +1,5 @@
 from matrix import *
-from regressione import *
+from regression import *
 from pca import *
 
 def main():
@@ -11,12 +11,14 @@ def main():
     ptot = [float(row[4]) for row in data]
     data = list(zip(tmin, tmed, tmax, ptot))
 
-    a,b = regressione(tmin, tmed) # coefficienti della retta di regressione a*x + b
+    a,b = regression(tmin, tmed) # coefficienti della retta di regressione a*x + b
+    print(f"Coefficienti della retta di regressione lineare (tmin, tmed): a = {a}, b = {b}")
 
     # primo campione bivariato tmin,tmed
     plt.figure(1)
     plt.plot(tmin, tmed, 'o', label='Dati')
-    plt.plot(tmin, [a * xi + b for xi in tmin], 'r', label='Retta di regressione') # per ogni punto xi nel dataset, valuta la retta di regressione in quel punto
+    # per ogni punto xi nel dataset, valuta la retta di regressione in quel punto
+    plt.plot(tmin, [a * xi + b for xi in tmin], 'r', label='Retta di regressione') 
     plt.ylabel('Tmed')
     plt.xlabel('Tmin')
     plt.title('Regressione lineare sul primo campione bivariato (tmin,tmed)')
@@ -24,12 +26,13 @@ def main():
     plt.show()
 
     # secondo campione bivariato tmin,ptot
-    a2, b2 = regressione(tmin, ptot)
-    print(f"Coefficients for the second regression line: a = {a2}, b = {b2}")
+    a2, b2 = regression(tmin, ptot)
+    print(f"Coefficienti della retta di regressione lineare (tmin, ptot): a = {a2}, b = {b2}")
 
     plt.figure(2)
     plt.plot(tmin, ptot, 'o', label='Dati')
-    plt.plot(tmin, [a2 * xi + b2 for xi in tmin], 'r', label='Retta di regressione') # per ogni punto xi nel dataset, valuta la retta di regressione in quel punto
+    # per ogni punto xi nel dataset, valuta la retta di regressione in quel punto
+    plt.plot(tmin, [a2 * xi + b2 for xi in tmin], 'r', label='Retta di regressione')
     plt.xlabel('Tmin')
     plt.ylabel('Ptot')
     plt.title('Regressione lineare sul secondo campione bivariato (tmin,ptot)')
@@ -48,4 +51,4 @@ def main():
 
 
 if __name__ == "__main__":
-        main()
+    main()
