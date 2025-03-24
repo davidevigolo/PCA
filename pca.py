@@ -3,8 +3,8 @@ import numpy as np
 def costruisci_mat_covarianza(data):
     return np.cov(data, rowvar=False)
 
-def decomposizione_spettrale(matrix):
-    autovalori, autovettori = np.linalg.eig(matrix)
+def decomposizione_spettrale(matrice):
+    autovalori, autovettori = np.linalg.eig(matrice)
     return autovettori.T, autovalori  # Le righe sono autovettori
 
 def pca(data):
