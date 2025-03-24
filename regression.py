@@ -10,15 +10,15 @@ import statistics
 """
 def regression(x, y):
     # calcolo media dei valori in x e y
-    mean_x = statistics.mean(x)
-    mean_y = statistics.mean(y)
+    media_x = statistics.mean(x)
+    media_y = statistics.mean(y)
     
     # calcolo numeratore e denominatore tramite
     # formula precedentemente ricavata
-    num = sum((xi - mean_x) * (yi - mean_y) for xi, yi in zip(x, y))
-    den = sum((xi - mean_x) ** 2 for xi in x)
+    num = sum((xi - media_x) * (yi - media_y) for xi, yi in zip(x, y))
+    den = sum((xi - media_x) ** 2 for xi in x)
     
     # calcolo di a* e b*
     a_s = num / den
-    b_s = mean_y - a_s * mean_x
+    b_s = media_y - a_s * media_x
     return a_s, b_s

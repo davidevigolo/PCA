@@ -2,9 +2,15 @@ from matrix import *
 from regression import *
 from pca import *
 
+def leggi_da_file(nome_file):
+    with open(nome_file, 'r') as f:
+        data = f.readlines()
+    data = [line.strip().split(',') for line in data]
+    return data
+
 def main():
     # Lettura dei dati
-    data = read_data('./dati/dati.csv')
+    data = leggi_da_file('./dati/dati.csv')
     tmin = [float(row[1]) for row in data]
     tmed = [float(row[2]) for row in data]
     tmax = [float(row[3]) for row in data]
@@ -39,10 +45,10 @@ def main():
     plt.legend()
     plt.show()
 
-    shrinked_data = pca(data)
+    dati_proiettati = pca(data)
     # Plot dei dati proiettati sulle prime due componenti principali
     plt.figure(3)
-    plt.scatter(shrinked_data[:, 0], shrinked_data[:, 1])
+    plt.scatter(dati_proiettati[:, 0], dati_proiettati[:, 1])
     plt.xlabel('Componente 1')
     plt.ylabel('Componente 2')
     plt.title('PCA')
