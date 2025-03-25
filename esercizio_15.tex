@@ -1,0 +1,315 @@
+\documentclass[a4paper]{report}
+\usepackage{amsmath}
+\usepackage[italian]{babel}
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfpagemode=FullScreen,
+    }
+
+\usepackage{graphicx}
+
+\title{Probabilità e statastica - Foglio 1, esercizio 15 A.A. 2024-25}
+\author{Basso Kevin
+        \and De Fina Giuseppe
+        \and Mantoan Matteo
+        \and Rampazzo Filippo
+        \and Vigolo Davide}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Minimizzazione della funzione \(\varphi\)}
+
+Data la funzione di errore:
+\[
+\varphi(a, b) = \sum_{i=1}^n \left( y_i - (a x_i + b) \right)^2,
+\]
+vogliamo trovare \( (a^*, b^*) \) che la minimizzano.
+
+\subsection{Calcolo delle derivate parziali}
+
+Le derivate parziali rispetto ad \( a \) e \( b \) sono:
+\[
+\frac{\partial \varphi}{\partial a} = -2 \sum_{i=1}^n x_i \left( y_i - (a x_i + b) \right) = 0,
+\]
+\[
+\frac{\partial \varphi}{\partial b} = -2 \sum_{i=1}^n \left( y_i - (a x_i + b) \right) = 0.
+\]
+
+\subsection{Sistema di equazioni}
+
+Dividendo per \(-2\) e riorganizzando:
+\[
+\begin{cases}
+\displaystyle \sum_{i=1}^n x_i \left( y_i - (a x_i + b) \right) = 0, & \text{(Equazione 1)} \\
+\displaystyle \sum_{i=1}^n \left( y_i - (a x_i + b) \right) = 0.
+& \text{(Equazione 2)}
+\end{cases}
+\]
+
+\subsection{Soluzione per \( b \) (Equazione 2)}
+
+Dall'Equazione 2:
+\begin{align*}
+0 &= \sum_{i=1}^{n} \left( y_i - (a x_i + b) \right) \\
+&= \sum_{i=1}^{n} y_i - \sum_{i=1}^{n} a x_i + \sum_{i=1}^{n} b \\
+&= \sum_{i=1}^{n} y_i - a \sum_{i=1}^{n} x_i - n b\\
+b &= \frac{1}{n} \sum_{i=1}^{n} y_i - \frac{a}{n} \sum_{i=1}^{n} x_i. \\
+b &= \overline{y}- a \overline{x}.
+\end{align*}
+
+\subsection{Soluzione per \( a \) (Equazione 1)}
+
+Sostituendo \( b = \bar{y} - a \bar{x} \) nell'Equazione 1:
+\begin{align*}
+0 &= \sum_{i=1}^{n} x_i\left( y_i - (a x_i + b) \right) \\
+&= \sum_{i=1}^n x_i \left( y_i - a x_i - (\bar{y} - a \bar{x}) \right) \\
+&= \sum_{i=1}^n x_i (y_i - \bar{y}) - a \sum_{i=1}^n x_i (x_i - \bar{x}) \\
+\end{align*}
+
+Riscriviamo le somme:
+\[
+    \sum_{i=1}^n x_i (y_i - \bar{y}) = \sum_{i=1}^n (x_i - \bar{x} + \bar{x})(y_i - \bar{y}) = \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) + \bar{x} \sum_{i=1}^n (y_i - \bar{y}),
+\]
+dove \(\sum_{i=1}^n (y_i - \bar{y}) = 0\) dato che \(\sum_{i=1}^n (y_i)\) è n volte la media, quindi uguale a \(\sum_{i=1}^n (\bar{y})\), da questo segue che:
+\begin{align}
+\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) + \bar{x} \sum_{i=1}^n (y_i - \bar{y}) = \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}).
+\end{align}
+
+Analogamente:
+\begin{equation*}
+\sum_{i=1}^n x_i (x_i - \bar{x}) = \sum_{i=1}^n x_i^2 - \bar{x} x_i = \sum_{i=1}^n x_i^2 - 2\bar{x} x_i + \bar{x}^2 + \bar{x}x_i -\bar{x}^2 \\
+\end{equation*}
+\begin{align} 
+= \sum_{i=1}^n (x_i - \bar{x})^2 + \bar{x} \sum_{i=1}^n (x_i - \bar{x})
+\end{align}
+dove \(\sum_{i=1}^n (x_i - \bar{x}) = 0\) per lo stesso motivo di sopra, quindi:
+\[
+\sum_{i=1}^n x_i (x_i - \bar{x}) = \sum_{i=1}^n (x_i - \bar{x})^2.
+\]
+
+Sostituendo nell'Equazione 1:
+\begin{align*}
+\sum_{i=1}^{n} \left( y_i - (a x_i + b) \right) &= \sum_{i=1}^n x_i (y_i - \bar{y}) - a \sum_{i=1}^n x_i (x_i - \bar{x}) \text{ per 1) e 2)}\\
+&= \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) - a \sum_{i=1}^n (x_i - \bar{x})^2 = 0.
+\end{align*}
+
+Isolando \( a \):
+\[
+a = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+\]
+
+\subsection{Soluzione finale}
+
+I coefficienti ottimali sono:
+\[
+\boxed{a^* = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}, \quad b^* = \bar{y} - a^* \bar{x}}
+\]
+
+\subsection{Conclusione}
+
+Si nota che \(\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})\) è la covarianza tra x e y (\(\text{cov}_{xy}\)) e che \\
+\(\sum_{i=1}^n (x_i - \bar{x})^2\) è la varianza di x (\(\text{var}_x\)), quindi possiamo riscrivere \(a^*\) come:
+\[
+a^* = \frac{\text{cov}_{xy}}{\text{var}_x}.
+\]
+\textbf{Nota:} La formula per \(a^*\) è il \textit{coefficiente angolare} della retta di regressione, mentre \(b^*\) è l'\textit{intercetta} che assicura che la retta passi per il punto \((\bar x, \bar y)\).
+
+\newpage
+
+\section{Codice}
+
+\subsection{Calcolo della retta di regressione}
+
+File "regression.py"
+\begin{lstlisting}[language=Python]
+import statistics
+
+"""
+    dato un campione bi-variato in x, y calcola:
+        - a* -> il coefficiente angolare della retta di regressione
+        - b* -> l'intercetta di tale retta
+        
+    nota: usiamo statistics.mean() per una maggiore stabilita
+          numerica nel risultato, verificato tramite vari test
+"""
+def regression(x, y):
+    # calcolo media dei valori in x e y
+    media_x = statistics.mean(x)
+    media_y = statistics.mean(y)
+    
+    # calcolo numeratore e denominatore tramite
+    # formula precedentemente ricavata
+    num = sum((xi - media_x) * (yi - media_y) for xi, yi in zip(x, y))
+    den = sum((xi - media_x) ** 2 for xi in x)
+    
+    # calcolo di a* e b*
+    a_s = num / den
+    b_s = media_y - a_s * media_x
+    return a_s, b_s
+
+\end{lstlisting}
+
+\subsection{Import dei dati}
+
+File "main.py"
+\begin{lstlisting}[language=Python]
+def leggi_da_file(nome_file):
+    with open(nome_file, 'r') as f:
+        data = f.readlines()
+    data = [line.strip().split(',') for line in data]
+    return data
+\end{lstlisting}
+
+\subsection{Principal Component Analysis}
+
+File "pca.py".
+Il codice è stato realizzato seguendo i principi presenti in \href{https://builtin.com/data-science/step-step-explanation-principal-component-analysis}{questo articolo}.
+\begin{lstlisting}[language=Python]
+import numpy as np
+
+def costruisci_mat_covarianza(data):
+    return np.cov(data, rowvar=False)
+
+def decomposizione_spettrale(matrix):
+    autovalori, autovettori = np.linalg.eig(matrix)
+    return autovettori.T, autovalori  # Le righe sono autovettori
+
+def pca(data):
+    data = np.array(data, dtype=float)
+    
+    # 1. Standardizzazione dei dati
+    media = np.mean(data, axis=0)
+    std = np.std(data, axis=0, ddof=1)  # Usa la deviazione standard del campione (ddof=1)
+    data_std = (data - media) / std
+    
+    # 2. Calcola la matrice di covarianza dei dati standardizzati
+    matrice_covarianza = costruisci_mat_covarianza(data_std)
+    
+    # 3. Decomposizione spettrale
+    autovettori, autovalori = decomposizione_spettrale(matrice_covarianza)
+    
+    # 4. Ordina gli autovettori per autovalori (decrescente)
+    indici_ordinati = np.argsort(autovalori)[::-1]
+    autovettori = autovettori[indici_ordinati, :]  # Ordina le righe
+    autovalori = autovalori[indici_ordinati]
+    
+    # 5. Seleziona i primi 2 autovettori (righe)
+    max_autovettori = autovettori[:2, :]
+    
+    # 6. Proietta i dati standardizzati
+    dati_proiettati = (max_autovettori @ data_std.T).T
+    
+    return dati_proiettati
+\end{lstlisting}
+
+\subsection{Stampa dei grafici e dei valori ricavati}
+
+File "main.py"
+\begin{lstlisting}[language=Python, breaklines=true]
+from matrix import *
+from regression import *
+from pca import *
+
+def main():
+    # Lettura dei dati
+    data = leggi_da_file('./dati/dati.csv')
+    tmin = [float(row[1]) for row in data]
+    tmed = [float(row[2]) for row in data]
+    tmax = [float(row[3]) for row in data]
+    ptot = [float(row[4]) for row in data]
+    data = list(zip(tmin, tmed, tmax, ptot))
+
+    a,b = regression(tmin, tmed) # coefficienti della retta di regressione a*x + b
+    print(f"Coefficienti della retta di regressione lineare (tmin, tmed): a = {a}, b = {b}")
+
+    # primo campione bivariato tmin,tmed
+    plt.figure(1)
+    plt.plot(tmin, tmed, 'o', label='Dati')
+    # per ogni punto xi nel dataset, valuta la retta di regressione in quel punto
+    plt.plot(tmin, [a * xi + b for xi in tmin], 'r', label='Retta di regressione') 
+    plt.ylabel('Tmed')
+    plt.xlabel('Tmin')
+    plt.title('Regressione lineare sul primo campione bivariato (tmin,tmed)')
+    plt.legend()
+    plt.show()
+
+    # secondo campione bivariato tmin,ptot
+    a2, b2 = regression(tmin, ptot)
+    print(f"Coefficienti della retta di regressione lineare (tmin, ptot): a = {a2}, b = {b2}")
+
+    plt.figure(2)
+    plt.plot(tmin, ptot, 'o', label='Dati')
+    # per ogni punto xi nel dataset, valuta la retta di regressione in quel punto
+    plt.plot(tmin, [a2 * xi + b2 for xi in tmin], 'r', label='Retta di regressione')
+    plt.xlabel('Tmin')
+    plt.ylabel('Ptot')
+    plt.title('Regressione lineare sul secondo campione bivariato (tmin,ptot)')
+    plt.legend()
+    plt.show()
+
+    dati_proiettati = pca(data)
+    # Plot dei dati proiettati sulle prime due componenti principali
+    plt.figure(3)
+    plt.scatter(dati_proiettati[:, 0], dati_proiettati[:, 1])
+    plt.xlabel('Componente 1')
+    plt.ylabel('Componente 2')
+    plt.title('PCA')
+    plt.legend()
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\newpage
+
+\section{Grafici}
+
+\subsection{Tmin vs Tmed e retta di regressione}
+
+Output: "Coefficienti della retta di regressione lineare (tmin, tmed): \(a = 0.9299473114832919, b = 4.515694867377192\)".
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{tmin-vs-tmed.png}
+    \caption{Tmin vs Tmed}
+    \label{fig:enter-label}
+\end{figure}
+
+\newpage
+
+\subsection{Tmin vs Ptot e retta di regressione}
+
+Output: "Coefficienti della retta di regressione lineare (tmin, ptot): \(a = -0.7340932767048642, b = 18.131124956593744\)".
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{tmin-vs-ptot.png}
+    \caption{Tmin vs Ptot}
+    \label{fig:enter-label}
+\end{figure}
+
+\newpage
+
+\subsection{Principal Component Analysis}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{pca.png}
+    \caption{Principal Component Analysis sul campione 4-variato, plot delle prime due componenti prin-
+cipali.}
+    \label{fig:enter-label}
+\end{figure}
+
+\end{document}
